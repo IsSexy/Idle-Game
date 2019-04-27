@@ -3,6 +3,14 @@ const playerIcon = document.querySelector('#playerIcon');
 const enemyIcon = document.querySelector('#enemyIcon');
 const attackBtn = document.querySelector('#attackBtn');
 
+function attack()
+{
+	this.enemies[0].maxHp -= this.player.damage;
+	this.refreshFight();
+}
+
+attackBtn.onclick = attack;
+
 function IdleGame()
 {
 	this.player = 
@@ -20,4 +28,20 @@ function IdleGame()
 		{ name: 'Enemy3', image: '', maxHp: 15 },
 		{ name: 'Enemy4', image: '', maxHp: 35 }
 	]
+
+	this.startGame();
 }
+
+IdleGame.prototype.startGame = function()
+{
+	playerIcon.textContent = this.player.maxHp;
+	enemyIcon.textContent = this.enemies[0].maxHp;
+}
+
+IdleGame.prototype.refreshFight = function()
+{
+	playerIcon.textContent = this.player.maxHp;
+	enemyIcon.textContent = this.enemies[0].maxHp;
+}
+
+new IdleGame();
