@@ -5,8 +5,7 @@ const attackBtn = document.querySelector('#attackBtn');
 
 function attack()
 {
-	this.enemies[0].maxHp -= this.player.damage;
-	this.refreshFight();
+	theGame.attackEnemy();
 }
 
 attackBtn.onclick = attack;
@@ -44,4 +43,11 @@ IdleGame.prototype.refreshFight = function()
 	enemyIcon.textContent = this.enemies[0].maxHp;
 }
 
-new IdleGame();
+IdleGame.prototype.attackEnemy = function()
+{
+	this.enemies[0].maxHp -= this.player.damage;
+	this.refreshFight();
+	console.log('Attacked');
+}
+
+const theGame = new IdleGame();
