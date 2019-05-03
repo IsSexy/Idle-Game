@@ -45,7 +45,7 @@ function IdleGame()
 IdleGame.prototype.startGame = function()
 {
 	playerName.textContent = this.player.name;
-	
+	this.refreshStats();
 	this.newEnemy();
 	this.refreshFight();
 }
@@ -55,6 +55,13 @@ IdleGame.prototype.refreshFight = function()
 	playerIcon.textContent = this.player.maxHp;
 	enemyIcon.textContent = currentEnemy.maxHp;
 	enemyName.textContent = currentEnemy.name;
+}
+
+IdleGame.prototype.refreshStats = function()
+{
+	playerStats.querySelector('#health').textContent = `${this.player.currentHp}/${this.player.maxHp}`;
+	playerStats.querySelector('#level').textContent = this.player.level;
+	playerStats.querySelector('#experience').textContent = this.player.exp;
 }
 
 IdleGame.prototype.newEnemy = function()
@@ -70,20 +77,23 @@ IdleGame.prototype.newEnemy = function()
 IdleGame.prototype.attackEnemy = function()
 {
 	currentEnemy.maxHp -= this.player.damage;
+	this.player.currentHp -= randomInt(5);
 	if(currentEnemy.maxHp <= 0)
 	{
 		this.player.exp += currentEnemy.exp;
-		if(this.player.exp / 100 > 1)
+		if(this.player.exp / (100 * this.player.level) >= 1)
 		{
 			console.log('LEVEL UP!');
 			this.player.damage += 1;
 			this.player.maxHp += 5;
-			this.player.exp = 0;
+			this.player.level += 1;
+			//this.player.exp = 0;
 			this.player.currentHp = this.player.maxHp;
 		}
 		this.newEnemy();
 	}
 	this.refreshFight();
+	this.refreshStats();
 	console.log('Attacked');
 }
 
