@@ -1,8 +1,11 @@
 //HTML Selectors
 const playerIcon = document.querySelector('#playerIcon');
+const playerName = document.querySelector('#playerName');
+const playerStats = document.querySelector('#playerStats');
 const enemyIcon = document.querySelector('#enemyIcon');
+const enemyName = document.querySelector('#enemyName');
 const attackBtn = document.querySelector('#attackBtn');
-var currentEnemy;
+var currentEnemy = {};
 
 function randomInt(max)
 {
@@ -41,6 +44,8 @@ function IdleGame()
 
 IdleGame.prototype.startGame = function()
 {
+	playerName.textContent = this.player.name;
+	
 	this.newEnemy();
 	this.refreshFight();
 }
@@ -49,6 +54,7 @@ IdleGame.prototype.refreshFight = function()
 {
 	playerIcon.textContent = this.player.maxHp;
 	enemyIcon.textContent = currentEnemy.maxHp;
+	enemyName.textContent = currentEnemy.name;
 }
 
 IdleGame.prototype.newEnemy = function()
@@ -67,10 +73,12 @@ IdleGame.prototype.attackEnemy = function()
 	if(currentEnemy.maxHp <= 0)
 	{
 		this.player.exp += currentEnemy.exp;
-		if(this.player.exp % 100 === 0)
+		if(this.player.exp / 100 > 1)
 		{
+			console.log('LEVEL UP!');
 			this.player.damage += 1;
 			this.player.maxHp += 5;
+			this.player.exp = 0;
 			this.player.currentHp = this.player.maxHp;
 		}
 		this.newEnemy();

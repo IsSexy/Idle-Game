@@ -7,12 +7,23 @@
 	
 	<body>
 		<div class="container">
+			<div class ="row">
+				<h3 id="playerName" class="col-sm-3 offset-sm-2"></h3>
+				<h3 id="enemyName" class="col-sm-3 offset-sm-2"></h3>
+			</div>
 			<div class="row">
 				<p id="playerIcon" class="jumbotron col-sm-3 offset-sm-2 text-center">TEST</p>
 				<p id="enemyIcon" class="jumbotron col-sm-3 offset-sm-2 text-center">TEST</p>
 			</div>
 			<div class="row">
 				<button id="attackBtn" class="btn btn-success col-sm-2 offset-5">Attack</button>
+			</div>
+			<div class="row">
+				<ul class="list-group" id="playerStats">
+					<li class="list-group-item list-group-item-danger" id="health"></li>
+					<li class="list-group-item" id="level"></li>
+					<li class="list-group-item" id="experience"></li>
+				</ul>
 			</div>
 		</div>
 	</body>
