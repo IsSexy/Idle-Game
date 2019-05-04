@@ -12,18 +12,28 @@
 				<h3 id="enemyName" class="col-sm-3 offset-sm-2"></h3>
 			</div>
 			<div class="row">
-				<p id="playerIcon" class="jumbotron col-sm-3 offset-sm-2 text-center">TEST</p>
+				<ul class="list-group col-sm-2" id="playerStats">
+					<li class="list-group-item list-group-item-danger" id="health">
+						<!--<div class="progress">
+							<div id="healthBar" class="progress-bar w-50" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+						</div>-->
+						<!--<progress id="healthBar" max="100" value="50"></progress>-->
+						<div class="progressBarContainer">
+							<div id="healthBar" class="progressBar">
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item" id="level"></li>
+					<li class="list-group-item" id="experience"></li>
+				</ul>
+				<p id="playerIcon" class="jumbotron col-sm-3 text-center">TEST</p>
 				<p id="enemyIcon" class="jumbotron col-sm-3 offset-sm-2 text-center">TEST</p>
 			</div>
 			<div class="row">
 				<button id="attackBtn" class="btn btn-success col-sm-2 offset-5">Attack</button>
 			</div>
 			<div class="row">
-				<ul class="list-group" id="playerStats">
-					<li class="list-group-item list-group-item-danger" id="health"></li>
-					<li class="list-group-item" id="level"></li>
-					<li class="list-group-item" id="experience"></li>
-				</ul>
+				
 			</div>
 		</div>
 	</body>
@@ -32,3 +42,22 @@
 
 
 <script src="main.js"></script>
+<style>
+	/*#healthBar {
+		width: 100%;
+		height: 1000px;
+		background: blue;
+	}*/
+
+	.progressBarContainer {
+	  	width: 100%;
+	  	height: 20px;
+	  	border: 1px black solid;
+	}
+
+	.progressBar {
+  		width: 33%;
+  		height: 100%;
+ 		background-color: red;
+	}
+</style>

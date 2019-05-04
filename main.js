@@ -5,6 +5,7 @@ const playerStats = document.querySelector('#playerStats');
 const enemyIcon = document.querySelector('#enemyIcon');
 const enemyName = document.querySelector('#enemyName');
 const attackBtn = document.querySelector('#attackBtn');
+const healthBar = document.querySelector('#healthBar');
 var currentEnemy = {};
 
 function randomInt(max)
@@ -59,7 +60,9 @@ IdleGame.prototype.refreshFight = function()
 
 IdleGame.prototype.refreshStats = function()
 {
-	playerStats.querySelector('#health').textContent = `${this.player.currentHp}/${this.player.maxHp}`;
+	//playerStats.querySelector('#health').textContent = `${this.player.currentHp}/${this.player.maxHp}`;
+	let progress = Math.round((this.player.currentHp / this.player.maxHp) * 100);
+	healthBar.style.width = `${progress}%`;
 	playerStats.querySelector('#level').textContent = this.player.level;
 	playerStats.querySelector('#experience').textContent = this.player.exp;
 }
