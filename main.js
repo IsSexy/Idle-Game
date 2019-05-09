@@ -6,6 +6,7 @@ const enemyIcon = document.querySelector('#enemyIcon');
 const enemyName = document.querySelector('#enemyName');
 const attackBtn = document.querySelector('#attackBtn');
 const healthBar = document.querySelector('#healthBar');
+const health = document.querySelector('#health');
 var currentEnemy = {};
 
 function randomInt(max)
@@ -18,10 +19,37 @@ function attack()
 	theGame.attackEnemy();
 }
 
+//Testing out making a player 'class'
+function UserPlayer()
+{
+	this.name = 'Player One';
+	this.maxHp = 50;
+	this.currentHp = this.maxHp;
+	this.level = 1;
+	this.strength = 5;
+	this.exp = 0;
+}
+
+UserPlayer.prototype.damage = function(){
+	return Math.round(randomInt(this.strength) * this.level) + 1;
+}
+
+UserPlayer.prototype.levelUpCheck = function(){
+	if(this.exp / (100 * this.level) >= 1)
+	{
+		console.log('LEVEL UP!');
+		this.strength += 1;
+		this.maxHp += 5;
+		this.level += 1;
+		this.currentHp = this.maxHp;
+	}
+}
+//End of player class ***************************************************
 attackBtn.onclick = attack;
 
 function IdleGame()
 {
+	/*
 	this.player = 
 	{
 		name: 'Player One',
@@ -30,7 +58,9 @@ function IdleGame()
 		damage: 5,
 		level: 1,
 		exp: 0
-	};
+	};*/
+
+	this.player = new UserPlayer();
 
 	this.enemies = 
 	[
@@ -63,6 +93,7 @@ IdleGame.prototype.refreshStats = function()
 	//playerStats.querySelector('#health').textContent = `${this.player.currentHp}/${this.player.maxHp}`;
 	let progress = Math.round((this.player.currentHp / this.player.maxHp) * 100);
 	healthBar.style.width = `${progress}%`;
+	healthBar.textContent = this.player.currentHp;
 	playerStats.querySelector('#level').textContent = this.player.level;
 	playerStats.querySelector('#experience').textContent = this.player.exp;
 }
@@ -79,11 +110,12 @@ IdleGame.prototype.newEnemy = function()
 
 IdleGame.prototype.attackEnemy = function()
 {
-	currentEnemy.maxHp -= this.player.damage;
+	currentEnemy.maxHp -= this.player.damage();
 	this.player.currentHp -= randomInt(5);
 	if(currentEnemy.maxHp <= 0)
 	{
 		this.player.exp += currentEnemy.exp;
+		/*
 		if(this.player.exp / (100 * this.player.level) >= 1)
 		{
 			console.log('LEVEL UP!');
@@ -93,6 +125,8 @@ IdleGame.prototype.attackEnemy = function()
 			//this.player.exp = 0;
 			this.player.currentHp = this.player.maxHp;
 		}
+		*/
+		this.player.levelUpCheck();
 		this.newEnemy();
 	}
 	this.refreshFight();
